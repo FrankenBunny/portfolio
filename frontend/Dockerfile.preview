@@ -1,0 +1,24 @@
+#---------------#
+#   BULD IMAGE  #
+#---------------#
+FROM node:18-alpine AS build_image
+WORKDIR /app/react-vite
+
+# Copy package list
+COPY package.json .
+
+# Install packages
+RUN npm install
+
+# Copy remaining files
+COPY . .
+
+RUN npm run build
+
+#--------------------#
+#  PRODUCTION IMAGE  #
+#--------------------#
+RUN npm install vite typescript
+EXPOSE 3000
+
+ENTRYPOINT ["npm", "run", "preview", "--", "--host", "0.0.0.0"]

@@ -1,0 +1,10 @@
+services:
+  frontend:
+    container_name: portfolio-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend/src:/app/src:readonly
+    ports:
+      - "3000:3000"
